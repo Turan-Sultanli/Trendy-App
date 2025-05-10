@@ -11,7 +11,6 @@ class HomePageScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-
     final products = ref.watch(filteredCategoryPovider);
 
     return Scaffold(
@@ -27,25 +26,21 @@ class HomePageScreen extends ConsumerWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  children: [
-                    SearchInput(),
-                    SizedBox(height: 24),
-                    CategoriesType(),
-                    SizedBox(height: 24),
-                    ProductsGrid(products: products,)
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SearchInput(),
+            SizedBox(height: 24),
+            CategoriesType(),
+            SizedBox(height: 24),
+            Expanded(
+                child: ProductsGrid(
+                  products: products,
+                ))
+          ],
+        ),
       ),
       bottomNavigationBar: CustomNavigationBar(),
     );

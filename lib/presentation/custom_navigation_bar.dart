@@ -14,27 +14,31 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.white,
-      type: BottomNavigationBarType.fixed,
-      fixedColor: Color(0xFFDB3022),
-      currentIndex: _selectedIndex,
-
-      showSelectedLabels: false,
-      showUnselectedLabels: false, 
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: BottomNavigationBar(
+        
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        fixedColor: Color(0xFFDB3022),
+        currentIndex: _selectedIndex,
       
-      onTap: (index) {
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.category), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: '', ),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-      ],
+        showSelectedLabels: false,
+        showUnselectedLabels: false, 
+        
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: '', ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        ],
+      ),
     );
   }
 }

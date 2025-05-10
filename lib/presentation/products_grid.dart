@@ -30,7 +30,20 @@ class ProductsGrid extends ConsumerWidget {
             ),
           ],
         ),
-        for (final product in products) ProductItem(product: product)
+        Expanded(
+          child: GridView.builder(
+            itemCount: products.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 24,
+              childAspectRatio: 0.7,
+            ),
+            itemBuilder: (context, index) {
+              return ProductItem(product: products[index]);
+            },
+          ),
+        ),
       ],
     );
   }

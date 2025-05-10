@@ -16,20 +16,16 @@ final filteredCategoryPovider = Provider<List<ProductsModel>>((ref) {
   final selectedCategory = ref.watch(selectedCategoryProvider);
   final searchText = ref.watch(searchProvider).toLowerCase();
 
-  List<ProductsModel> filteredProducts = [];
-
-  if (productAsync is! AsyncData) {
-    return [];
-  }
+  if (productAsync is! AsyncData) return [];
 
   final allProducts = productAsync.value!;
 
-  if (selectedCategory == 'all') {
-    return allProducts;
-  }
+  List<ProductsModel> filteredProducts;
 
-  if (selectedCategory == 'clothes') {
-    return allProducts.where((product) {
+  if (selectedCategory == 'all') {
+    filteredProducts = allProducts;
+  } else if (selectedCategory == 'clothes') {
+    filteredProducts = allProducts.where((product) {
       return product.category == "men's clothing" ||
           product.category == "women's clothing";
     }).toList();
@@ -38,11 +34,15 @@ final filteredCategoryPovider = Provider<List<ProductsModel>>((ref) {
         .where((product) => product.category == selectedCategory)
         .toList();
   }
+
+  // 🟡 BURA ƏLAVƏ ET
+
   if (searchText.isNotEmpty) {
     filteredProducts = filteredProducts
         .where((product) =>
             (product.title ?? '').toLowerCase().contains(searchText))
         .toList();
   }
+
   return filteredProducts;
 });

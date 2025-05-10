@@ -13,7 +13,6 @@ class SearchInput extends ConsumerWidget {
             child: TextFormField(
           onChanged: (value) {
             ref.read(searchProvider.notifier).state = value;
-            print(value);
           },
           decoration: InputDecoration(
               prefixIcon: const Icon(Icons.search),
