@@ -1,4 +1,5 @@
 import 'package:riverpod/riverpod.dart';
+import 'package:trendy_app/providers/search_provider.dart';
 import 'package:trendy_app/service/products/get_products.dart';
 import 'package:trendy_app/service/products/products_model.dart';
 
@@ -13,6 +14,9 @@ final selectedCategoryProvider = StateProvider<String>((ref) => 'all');
 final filteredCategoryPovider = Provider<List<ProductsModel>>((ref) {
   final productAsync = ref.watch(productsProvider);
   final selectedCategory = ref.watch(selectedCategoryProvider);
+  final searchText = ref.watch(searchProvider).toLowerCase();
+
+  List<ProductsModel> filteredProducts = [];
 
   if (productAsync is! AsyncData) {
     return [];
@@ -20,7 +24,7 @@ final filteredCategoryPovider = Provider<List<ProductsModel>>((ref) {
 
   final allProducts = productAsync.value!;
 
-  if(selectedCategory == 'all') {
+  if (selectedCategory == 'all') {
     return allProducts;
   }
 
@@ -30,8 +34,15 @@ final filteredCategoryPovider = Provider<List<ProductsModel>>((ref) {
           product.category == "women's clothing";
     }).toList();
   } else {
-    return allProducts
+    filteredProducts = allProducts
         .where((product) => product.category == selectedCategory)
         .toList();
   }
+  if (searchText.isNotEmpty) {
+    filteredProducts = filteredProducts
+        .where((product) =>
+            (product.title ?? '').toLowerCase().contains(searchText))
+        .toList();
+  }
+  return filteredProducts;
 });
