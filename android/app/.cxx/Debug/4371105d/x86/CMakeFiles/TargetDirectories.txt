@@ -1,0 +1,2 @@
+C:/Users/Turan/Desktop/trendy_app/android/app/.cxx/Debug/4371105d/x86/CMakeFiles/edit_cache.dir
+C:/Users/Turan/Desktop/trendy_app/android/app/.cxx/Debug/4371105d/x86/CMakeFiles/rebuild_cache.dir
