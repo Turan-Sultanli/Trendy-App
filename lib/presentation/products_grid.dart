@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trendy_app/presentation/product_item.dart';
+import 'package:trendy_app/service/products/products_model.dart';
 
 class ProductsGrid extends ConsumerWidget {
-  const ProductsGrid({super.key});
+  const ProductsGrid({super.key, required this.products});
+
+  final List<ProductsModel> products;
 
   @override
   Widget build(BuildContext context, ref) {
@@ -27,7 +30,7 @@ class ProductsGrid extends ConsumerWidget {
             ),
           ],
         ),
-        ProductItem()
+        for (final product in products) ProductItem(product: product)
       ],
     );
   }

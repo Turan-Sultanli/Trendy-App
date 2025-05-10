@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trendy_app/presentation/categories_type.dart';
 import 'package:trendy_app/presentation/custom_navigation_bar.dart';
 import 'package:trendy_app/presentation/products_grid.dart';
 import 'package:trendy_app/presentation/search_input.dart';
+import 'package:trendy_app/providers/products_provider.dart';
 
-class HomePageScreen extends StatelessWidget {
+class HomePageScreen extends ConsumerWidget {
   const HomePageScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+
+    final products = ref.watch(filteredCategoryPovider);
+
     return Scaffold(
       // backgroundColor: Color(0xFFFCFCFC),
       extendBody: true,
@@ -34,7 +39,7 @@ class HomePageScreen extends StatelessWidget {
                     SizedBox(height: 24),
                     CategoriesType(),
                     SizedBox(height: 24),
-                    ProductsGrid()
+                    ProductsGrid(products: products,)
                   ],
                 ),
               ),

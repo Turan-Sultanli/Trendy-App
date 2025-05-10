@@ -4,11 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trendy_app/providers/products_provider.dart';
 import 'package:trendy_app/providers/wishlist_provider.dart';
 import 'package:trendy_app/screen/details_page_screen.dart';
+import 'package:trendy_app/service/products/products_model.dart';
 
 class ProductItem extends ConsumerWidget {
-  const ProductItem({super.key});
+   const ProductItem({super.key, required this.product});
 
   final bool isSelected = true;
+  final ProductsModel product;
 
   @override
   Widget build(BuildContext context, ref) {
