@@ -9,53 +9,133 @@ class WishlistPageScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final wishlist = ref.watch(wishlistProvider);
 
-    if (wishlist.isEmpty) {
-      return Center(
-        child: Text('Wishlist is empty'),
-      );
-    } else {
-      return Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      appBar: AppBar(
         backgroundColor: Colors.grey,
-        appBar: AppBar(
-          backgroundColor: Colors.grey,
-          title: Center(
-              child: Text(
-            'Watchlist',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-          )),
-        ),
-        body: Container(
-          height: 300,
-          color: Colors.amber,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+        title: Center(
+            child: Text(
+          'Wishlist',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        )),
+      ),
+      body: wishlist.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Image.asset('assets/images/product.png'),
+                  Icon(Icons.favorite_border, size: 80, color: Colors.grey),
+                  SizedBox(height: 12),
+                  Text(
+                    'Your wishlist is empty',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
-                  Column(
-                    children: [
-                      Text('Title'),
-                      Text('100 USD'),
-                      Text('About'),
-                    ],
+                  SizedBox(height: 8),
+                  Text(
+                    'Tap the heart icon on products to add them here.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.grey[700]),
                   ),
                 ],
               ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.favorite_border_outlined),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+            )
+          : ListView.builder(
+              itemCount: wishlist.length,
+              itemBuilder: (context, index) {
+                final product = wishlist[index];
+                return Container(
+                  margin: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Şəkil
+                      SizedBox(
+                        height: 160,
+                        width: 100,
+                        child: Image.network(product.image ?? '',
+                            fit: BoxFit.contain),
+                      ),
+                      SizedBox(width: 12),
+
+                      // Mətnlər
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.title ?? '',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                                '${product.price?.toStringAsFixed(2) ?? '0.00'} USD',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      color: Color(0xFFDB3022),
+                                    )),
+                            SizedBox(height: 8),
+                            Text(
+                              product.description ?? '',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // İkon
+                      IconButton(
+                        onPressed: () async {
+                          final confirm = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text(
+                                  'Do you want remove this product from wishlist ?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, false),
+                                    child: Text('No')),
+                                TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, true),
+                                    child: Text('Yes'))
+                              ],
+                            ),
+                          );
+                          if (confirm == true) {
+                            ref
+                                .read(wishlistProvider.notifier)
+                                .toggleWishlist(product);
+                          }
+                        },
+                        icon: Icon(Icons.favorite, color: Colors.red),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+    );
   }
 }

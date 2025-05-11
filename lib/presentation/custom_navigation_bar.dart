@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trendy_app/screen/home_page_screen.dart';
+import 'package:trendy_app/screen/wishlist_page_screen.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});
@@ -8,37 +10,47 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-
-  
-
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: BottomNavigationBar(
-        
-        backgroundColor: Colors.white,
-        type: BottomNavigationBarType.fixed,
-        fixedColor: Color(0xFFDB3022),
-        currentIndex: _selectedIndex,
-      
-        showSelectedLabels: false,
-        showUnselectedLabels: false, 
-        
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.category), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: '', ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-      ),
+    return BottomNavigationBar(
+      backgroundColor: Colors.white,
+      type: BottomNavigationBarType.fixed,
+      fixedColor: Color(0xFFDB3022),
+      currentIndex: _selectedIndex,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      onTap: (index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+        if (index == 0) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => HomePageScreen()));
+        }
+        if (index == 1) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => HomePageScreen()));
+        }
+
+        if (index == 2) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => WishlistPageScreen()));
+        }
+                setState(() {
+          _selectedIndex = 0;
+        });
+
+      },
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: '',
+        ),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+      ],
     );
   }
 }

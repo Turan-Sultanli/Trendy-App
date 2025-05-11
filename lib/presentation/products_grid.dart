@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trendy_app/presentation/product_item.dart';
+import 'package:trendy_app/providers/products_provider.dart';
 import 'package:trendy_app/service/products/products_model.dart';
 
 class ProductsGrid extends ConsumerWidget {
@@ -23,7 +24,9 @@ class ProductsGrid extends ConsumerWidget {
                   ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                ref.read(selectedCategoryProvider.notifier).state = 'all';
+              },
               child: Text('See all',
                   style: (Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Color(0xFFDB3022), fontWeight: FontWeight.w600))),

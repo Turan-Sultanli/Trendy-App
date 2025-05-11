@@ -39,7 +39,7 @@ class ProductItem extends ConsumerWidget {
                 Positioned(
                   top: 8,
                   right: 8,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () {
                       ref
                           .read(wishlistProvider.notifier)
