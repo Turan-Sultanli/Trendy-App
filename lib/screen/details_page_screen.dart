@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:trendy_app/providers/wishlist_provider.dart';
 import 'package:trendy_app/service/products/products_model.dart';
 
-class DetailsPageScreen extends StatelessWidget {
-  const DetailsPageScreen({super.key, required this.product});
+class DetailsPageScreen extends ConsumerWidget {
+  const DetailsPageScreen({
+    super.key,
+    required this.product,
+  });
 
   final ProductsModel product;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final wishlist = ref.watch(wishlistProvider);
+    final isFavorite = wishlist.any((item) => item.id == product.id);
+
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -62,9 +71,20 @@ class DetailsPageScreen extends StatelessWidget {
                                     ?.copyWith(fontWeight: FontWeight.bold),
                               ),
                             ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.favorite_border_outlined))
+                            InkWell(
+                              onTap: () {
+                                ref
+                                    .read(wishlistProvider.notifier)
+                                    .toggleWishlist(product);
+                              },
+                              child: SvgPicture.asset(
+                                isFavorite
+                                    ? 'assets/icons/heart_red.svg'
+                                    : 'assets/icons/heart.svg',
+                                width: 20,
+                                height: 20,
+                              ),
+                            ),
                           ],
                         ),
                       ),

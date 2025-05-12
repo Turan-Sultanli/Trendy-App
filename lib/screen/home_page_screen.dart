@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trendy_app/presentation/categories_type.dart';
-import 'package:trendy_app/presentation/custom_navigation_bar.dart';
 import 'package:trendy_app/presentation/products_grid.dart';
 import 'package:trendy_app/presentation/search_input.dart';
 import 'package:trendy_app/providers/products_provider.dart';
@@ -41,7 +40,7 @@ class HomePageScreen extends ConsumerWidget {
           ],
         ),
       ),
-      bottomNavigationBar: CustomNavigationBar(),
+      // bottomNavigationBar: CustomNavigationBar(),
     );
   }
 }

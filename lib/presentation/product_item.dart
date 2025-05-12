@@ -18,7 +18,9 @@ class ProductItem extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DetailsPageScreen(product: product),
+          builder: (context) => DetailsPageScreen(
+            product: product,
+          ),
         ));
       },
       child: SizedBox(
