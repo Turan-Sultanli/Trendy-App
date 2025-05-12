@@ -55,16 +55,17 @@ class WishlistPageScreen extends ConsumerWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Şəkil
-                      SizedBox(
-                        height: 160,
-                        width: 100,
-                        child: Image.network(product.image ?? '',
-                            fit: BoxFit.contain),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 160,
+                            width: 100,
+                            child: Image.network(product.image ?? '',
+                                fit: BoxFit.contain),
+                          ),
+                        ],
                       ),
                       SizedBox(width: 12),
-
-                      // Mətnlər
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,11 +100,27 @@ class WishlistPageScreen extends ConsumerWidget {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
                             ),
+                            const SizedBox(height: 16),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                  backgroundColor: WidgetStateProperty.all(
+                                      Color(0xFFDB3022)),
+                                  ),
+                              child: Text(
+                                'Add To Cart',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                              ),
+                            )
                           ],
                         ),
                       ),
-
-                      // İkon
                       IconButton(
                         onPressed: () async {
                           final confirm = await showDialog<bool>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trendy_app/screen/cart_page_screen.dart';
 import 'package:trendy_app/screen/home_page_screen.dart';
 import 'package:trendy_app/screen/wishlist_page_screen.dart';
 
@@ -30,7 +31,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         }
         if (index == 1) {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => HomePageScreen()));
+              MaterialPageRoute(builder: (context) => CartPageScreen()));
         }
 
         if (index == 2) {

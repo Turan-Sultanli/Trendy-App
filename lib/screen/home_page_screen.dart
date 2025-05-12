@@ -14,7 +14,6 @@ class HomePageScreen extends ConsumerWidget {
     final products = ref.watch(filteredCategoryPovider);
 
     return Scaffold(
-      // backgroundColor: Color(0xFFFCFCFC),
       extendBody: true,
       appBar: AppBar(
         title: Center(

@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Trendy App',
+      theme: ThemeData(
+          appBarTheme: AppBarTheme(
+        backgroundColor: Color(0xFFFCFCFC),
+      )),
       // theme: ThemeData(
       //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       //     useMaterial3: true,
