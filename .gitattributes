@@ -1,0 +1,11 @@
+# GitHub linguist dil analizini düzəltmək üçün
+android/** linguist-vendored
+ios/** linguist-vendored
+linux/** linguist-vendored
+macos/** linguist-vendored
+windows/** linguist-vendored
+web/** linguist-vendored
+test/** linguist-vendored
+
+# Yalnız lib/ içindəki Dart faylları əsas kod kimi analiz edilsin
+lib/** linguist-language=Dart
