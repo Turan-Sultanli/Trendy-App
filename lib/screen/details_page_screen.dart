@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:trendy_app/providers/wishlist_provider.dart';
-import 'package:trendy_app/service/products/products_model.dart';
+import 'package:trendy_app/model/products_model.dart';
 
 class DetailsPageScreen extends ConsumerWidget {
   const DetailsPageScreen({

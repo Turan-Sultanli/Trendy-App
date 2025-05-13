@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trendy_app/presentation/product_item.dart';
 import 'package:trendy_app/providers/products_provider.dart';
-import 'package:trendy_app/service/products/products_model.dart';
+import 'package:trendy_app/model/products_model.dart';
 
 class ProductsGrid extends ConsumerWidget {
   const ProductsGrid({super.key, required this.products});

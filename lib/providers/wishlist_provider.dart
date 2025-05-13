@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trendy_app/service/products/products_model.dart';
+import 'package:trendy_app/model/products_model.dart';
 
 final wishlistProvider =
     StateNotifierProvider<WishlistNotifier, List<ProductsModel>>(

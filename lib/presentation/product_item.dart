@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:trendy_app/providers/wishlist_provider.dart';
 import 'package:trendy_app/screen/details_page_screen.dart';
-import 'package:trendy_app/service/products/products_model.dart';
+import 'package:trendy_app/model/products_model.dart';
 
 class ProductItem extends ConsumerWidget {
   const ProductItem({super.key, required this.product});

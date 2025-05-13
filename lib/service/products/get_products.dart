@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:trendy_app/constants/const_url.dart';
-import 'package:trendy_app/service/products/products_model.dart';
+import 'package:trendy_app/model/products_model.dart';
 
 Future<List<ProductsModel>> getProducts() async {
   final response = await http.get(Uri.parse('$baseUrl/products'));

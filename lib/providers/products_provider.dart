@@ -1,7 +1,7 @@
 import 'package:riverpod/riverpod.dart';
 import 'package:trendy_app/providers/search_provider.dart';
 import 'package:trendy_app/service/products/get_products.dart';
-import 'package:trendy_app/service/products/products_model.dart';
+import 'package:trendy_app/model/products_model.dart';
 
 //all products
 final productsProvider = FutureProvider<List<ProductsModel>>((ref) async {
