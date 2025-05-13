@@ -8,4 +8,54 @@ final cartProvider =
 
 class CartNotifier extends StateNotifier<List<CartItemModel>> {
   CartNotifier() : super([]);
+
+  // add product to cart
+  void addToCart(CartItemModel newItem) {
+    final isExist = state.any((item) => item.product.id == newItem.product.id);
+
+    if (isExist) {
+      state = state.map((item) {
+        if (item.product.id == newItem.product.id) {
+          return item.copyWith(quantity: item.quantity + 1);
+        } else {
+          return item;
+        }
+      }).toList();
+    } else {
+      state = [...state, newItem];
+    }
+  }
+
+  // remove prdocut from cart
+  void removeFromCart(int productId) {
+    state = state.where((item) => item.product.id != productId).toList();
+  }
+
+  //increase quantity
+  void increaseQuantity(int productId) {
+    state = state.map((item) {
+      if (item.product.id == productId) {
+        return item.copyWith(quantity: item.quantity + 1);
+      } else {
+        return item;
+      }
+    }).toList();
+  }
+
+  //decrease quantity
+  void decreaseQuantity(int productId) {
+    state = state
+        .map((item) {
+          if (item.product.id == productId) {
+            if (item.quantity > 1) {
+              return item.copyWith(quantity: item.quantity - 1);
+            } else {
+              return null;
+            }
+          }
+          return item;
+        })
+        .whereType<CartItemModel>()
+        .toList();
+  }
 }

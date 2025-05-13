@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:trendy_app/model/cart_item_model.dart';
+import 'package:trendy_app/providers/cart_provider.dart';
 import 'package:trendy_app/providers/wishlist_provider.dart';
 import 'package:trendy_app/model/products_model.dart';
+import 'package:trendy_app/screen/cart_page_screen.dart';
 
 class DetailsPageScreen extends ConsumerWidget {
   const DetailsPageScreen({
@@ -16,16 +19,19 @@ class DetailsPageScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final wishlist = ref.watch(wishlistProvider);
     final isFavorite = wishlist.any((item) => item.id == product.id);
+    final cartNotifier = ref.read(cartProvider.notifier);
+    final newItem = CartItemModel(product: product, quantity: 1);
 
     return Scaffold(
       appBar: AppBar(
         title: Center(
-            child: Text(
-          'Details',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-        )),
+          child: Text(
+            'Details',
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 34.0),
@@ -93,7 +99,6 @@ class DetailsPageScreen extends ConsumerWidget {
                       ),
                       Text(
                           '\$${product.price?.toStringAsFixed(2) ?? '0,00'}USD',
-                          // '\$${product.price?.toStringAsFixed(2) ?? '0.00'} USD',
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     color: Color(0xFFDB3022),
@@ -119,7 +124,14 @@ class DetailsPageScreen extends ConsumerWidget {
                       ),
                       Spacer(),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          cartNotifier.addToCart(newItem);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CartPageScreen(),
+                              ));
+                        },
                         style: ButtonStyle(
                             backgroundColor:
                                 WidgetStateProperty.all(Color(0xFFDB3022)),
@@ -141,32 +153,6 @@ class DetailsPageScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              // Positioned(
-              //   top: 20,
-              //   left: 20,
-              //   child: Container(
-              //     width: 34, // IconButton-un ümumi ölçüsü
-              //     height: 34,
-              //     decoration: BoxDecoration(
-              //       color: Color(0xFFDB3022),
-              //       shape: BoxShape.circle,
-              //     ),
-              //     child: IconButton(
-              //       onPressed: () {
-              //         Navigator.pop(context);
-              //       },
-              //       icon: Icon(
-              //         size: 20,
-              //         color: Colors.white,
-              //         Icons.chevron_left_outlined,
-              //       ),
-              //       // style: ButtonStyle(
-              //       //   backgroundColor:
-              //       //       WidgetStateProperty.all(Color(0x50DB3022)),
-              //       // ),
-              //     ),
-              //   ),
-              // )
             ],
           ),
         ),
