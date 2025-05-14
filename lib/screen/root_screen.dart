@@ -5,19 +5,31 @@ import 'package:trendy_app/screen/profile_page_screen.dart';
 import 'package:trendy_app/screen/wishlist_page_screen.dart';
 
 class RootScreen extends StatefulWidget {
-  const RootScreen({super.key});
+  const RootScreen({super.key, this.initialIndex = 0});
+
+  final int initialIndex;
 
   @override
   State<RootScreen> createState() => _RootScreenState();
 }
 
 class _RootScreenState extends State<RootScreen> {
-  int _selectedIndex = 0;
+  late int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: [
-        HomePageScreen(), CartPageScreen(), WishlistPageScreen(), ProfilePageScreen(),
+        HomePageScreen(),
+        CartPageScreen(),
+        WishlistPageScreen(),
+        ProfilePageScreen(),
       ][_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
@@ -30,7 +42,6 @@ class _RootScreenState extends State<RootScreen> {
           setState(() {
             _selectedIndex = index;
           });
-      
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),

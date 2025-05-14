@@ -5,7 +5,7 @@ import 'package:trendy_app/model/cart_item_model.dart';
 import 'package:trendy_app/providers/cart_provider.dart';
 import 'package:trendy_app/providers/wishlist_provider.dart';
 import 'package:trendy_app/model/products_model.dart';
-import 'package:trendy_app/screen/cart_page_screen.dart';
+import 'package:trendy_app/screen/root_screen.dart';
 
 class DetailsPageScreen extends ConsumerWidget {
   const DetailsPageScreen({
@@ -126,11 +126,13 @@ class DetailsPageScreen extends ConsumerWidget {
                       ElevatedButton(
                         onPressed: () {
                           cartNotifier.addToCart(newItem);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CartPageScreen(),
-                              ));
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const RootScreen(initialIndex: 1),
+                            ),
+                            (route) => false,
+                          );
                         },
                         style: ButtonStyle(
                             backgroundColor:

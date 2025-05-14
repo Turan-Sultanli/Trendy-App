@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OrderSummary extends StatelessWidget {
-  const OrderSummary({super.key});
+class OrderSummary extends ConsumerWidget {
+  const OrderSummary(this.isExpanded, this.onArrowPressed, {super.key});
+
+  final bool isExpanded;
+  final VoidCallback onArrowPressed;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context, ref) {
+    return AnimatedContainer(
+      height: isExpanded ? 150 : 300,
+      duration: Duration(milliseconds: 300),
       padding: EdgeInsets.all(12),
       width: MediaQuery.of(context).size.width - 40.0,
       decoration: BoxDecoration(
@@ -28,12 +34,14 @@ class OrderSummary extends StatelessWidget {
             children: [
               Text(
                 'Order Summary',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontSize: 20
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 20),
               ),
               IconButton(
-                  onPressed: () {}, icon: Icon(Icons.keyboard_arrow_down))
+                  onPressed: onArrowPressed,
+                  icon: Icon(Icons.keyboard_arrow_down))
             ],
           ),
           Divider(
@@ -66,9 +74,8 @@ class OrderSummary extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                      shape: WidgetStatePropertyAll(
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
-                      ),
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
                       backgroundColor: WidgetStatePropertyAll(Colors.red),
                       padding: WidgetStatePropertyAll(
                         EdgeInsets.symmetric(vertical: 12, horizontal: 16),

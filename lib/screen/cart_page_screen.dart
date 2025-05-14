@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trendy_app/providers/order_summary_provider.dart';
+import 'package:trendy_app/screen/root_screen.dart';
 import 'package:trendy_app/widgets/order_summary.dart';
 import 'package:trendy_app/widgets/presentation/quantity_button.dart';
 import 'package:trendy_app/providers/cart_provider.dart';
-import 'package:trendy_app/screen/home_page_screen.dart';
 
 class CartPageScreen extends ConsumerWidget {
   const CartPageScreen({super.key});
@@ -13,13 +14,23 @@ class CartPageScreen extends ConsumerWidget {
     final cart = ref.watch(cartProvider);
     final cartNotifier = ref.read(cartProvider.notifier);
 
+    final isExpanded = ref.watch(orderSummaryProvider);
+    final onArrowPressed = () {
+      ref.read(orderSummaryProvider.notifier).state =
+          !ref.read(orderSummaryProvider);
+    };
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, Object? result) {
         if (!didPop) {
-          Navigator.pushReplacement(
+          Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (_) => const HomePageScreen()),
+            MaterialPageRoute(
+                builder: (_) => const RootScreen(
+                      initialIndex: 0,
+                    )),
+            (route) => false,
           );
         }
       },
@@ -54,8 +65,7 @@ class CartPageScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                          },
+                          onTap: () {},
                           child: Image.network(
                             item.product.image.toString(),
                             width: 140,
@@ -119,7 +129,7 @@ class CartPageScreen extends ConsumerWidget {
                   );
                 },
               ),
-        bottomNavigationBar: OrderSummary(),
+        bottomNavigationBar: OrderSummary(isExpanded, onArrowPressed),
       ),
     );
   }
