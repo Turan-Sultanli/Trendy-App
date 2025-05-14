@@ -55,7 +55,6 @@ class CartPageScreen extends ConsumerWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            
                           },
                           child: Image.network(
                             item.product.image.toString(),
