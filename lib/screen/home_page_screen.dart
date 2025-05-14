@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trendy_app/presentation/categories_type.dart';
-import 'package:trendy_app/presentation/products_grid.dart';
-import 'package:trendy_app/presentation/search_input.dart';
+import 'package:trendy_app/widgets/presentation/categories_type.dart';
+import 'package:trendy_app/widgets/presentation/products_grid.dart';
+import 'package:trendy_app/widgets/presentation/search_input.dart';
 import 'package:trendy_app/providers/products_provider.dart';
 
 class HomePageScreen extends ConsumerWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trendy_app/presentation/product_item.dart';
+import 'package:trendy_app/widgets/presentation/product_item.dart';
 import 'package:trendy_app/providers/products_provider.dart';
 import 'package:trendy_app/model/products_model.dart';
 

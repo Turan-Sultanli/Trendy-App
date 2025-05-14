@@ -4,6 +4,7 @@ class CartItemModel {
   final ProductsModel product;
   int quantity;
 
+
   CartItemModel({required this.product, this.quantity = 1});
 
   CartItemModel copyWith({ProductsModel? product, int? quantity}) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trendy_app/presentation/category_widget.dart';
+import 'package:trendy_app/widgets/presentation/category_widget.dart';
 import 'package:trendy_app/providers/products_provider.dart';
 
 class CategoriesType extends ConsumerWidget {

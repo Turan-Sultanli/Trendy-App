@@ -43,7 +43,7 @@ class DetailsPageScreen extends ConsumerWidget {
                 child: Image.network(
                   product.image.toString(),
                   height: MediaQuery.of(context).size.height * 0.4,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
               Positioned(

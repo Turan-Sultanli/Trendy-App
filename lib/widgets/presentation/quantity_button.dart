@@ -28,8 +28,30 @@ class QuantityButton extends ConsumerWidget {
                 border: Border.all(color: Colors.grey.shade400),
                 borderRadius: BorderRadius.circular(6)),
             child: IconButton(
-              onPressed: () {
-                cartNotifier.decreaseQuantity(productId);
+              onPressed: () async {
+                if (currentItem?.quantity == 1) {
+                  final sholdRemove = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Remove Item'),
+                      content:
+                          Text('Do you want to remove this product from cart?'),
+                      actions: [
+                        TextButton(
+                            onPressed: () => Navigator.pop(context, false),
+                            child: Text('No')),
+                        TextButton(
+                            onPressed: () => Navigator.pop(context, true),
+                            child: Text('Yes')),
+                      ],
+                    ),
+                  );
+                  if (sholdRemove == true) {
+                    cartNotifier.removeFromCart(productId);
+                  }
+                } else {
+                  cartNotifier.decreaseQuantity(productId);
+                }
               },
               icon: Icon(Icons.remove),
               iconSize: 18,

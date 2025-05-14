@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trendy_app/model/cart_item_model.dart';
 
@@ -58,4 +59,17 @@ class CartNotifier extends StateNotifier<List<CartItemModel>> {
         .whereType<CartItemModel>()
         .toList();
   }
+
+  //sum of product price
+  double getItemTotalPrice(int productId) {
+    CartItemModel? item =
+        state.firstWhereOrNull((item) => item.product.id == productId);
+
+    if (item == null) return 0;
+    return (item.product.price ?? 0) * item.quantity;
+  }
+
+  //sum of all products price
+  double get totalPrice =>
+      state.fold(0.0, (sum, item) => sum + item.product.price! * item.quantity);
 }

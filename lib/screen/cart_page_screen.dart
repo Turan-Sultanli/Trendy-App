@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trendy_app/presentation/order_summary.dart';
-import 'package:trendy_app/presentation/quantity_button.dart';
+import 'package:trendy_app/widgets/order_summary.dart';
+import 'package:trendy_app/widgets/presentation/quantity_button.dart';
 import 'package:trendy_app/providers/cart_provider.dart';
 import 'package:trendy_app/screen/home_page_screen.dart';
 
@@ -31,23 +31,38 @@ class CartPageScreen extends ConsumerWidget {
         ),
         body: cart.isEmpty
             ? Center(
-                child: Text('Your cart is empty'),
+                child: Text(
+                  'Your cart is empty',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(color: Colors.grey[500]),
+                ),
               )
             : ListView.builder(
                 itemCount: cart.length,
                 padding: EdgeInsets.all(8),
                 itemBuilder: (context, index) {
                   final item = cart[index];
+                  final itemPrices = ref
+                      .read(cartProvider.notifier)
+                      .getItemTotalPrice(item.product.id!);
+
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(bottom: 20, left: 8),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.network(
-                          item.product.image.toString(),
-                          width: 140,
-                          height: 180,
-                          fit: BoxFit.cover,
+                        GestureDetector(
+                          onTap: () {
+                            
+                          },
+                          child: Image.network(
+                            item.product.image.toString(),
+                            width: 140,
+                            height: 180,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -60,7 +75,7 @@ class CartPageScreen extends ConsumerWidget {
                                       fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
                               Text(
-                                '\$${item.product.price?.toStringAsFixed(2) ?? '0,00'}USD',
+                                '\$${itemPrices.toStringAsFixed(2)}USD',
                               ),
                               const SizedBox(height: 8),
                               Row(
@@ -105,7 +120,7 @@ class CartPageScreen extends ConsumerWidget {
                   );
                 },
               ),
-              bottomNavigationBar: OrderSummary(),
+        bottomNavigationBar: OrderSummary(),
       ),
     );
   }
