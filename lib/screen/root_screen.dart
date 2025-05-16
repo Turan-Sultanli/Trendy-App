@@ -25,7 +25,7 @@ class _RootScreenState extends State<RootScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: [
+      body: const [
         HomePageScreen(),
         CartPageScreen(),
         WishlistPageScreen(),
@@ -34,7 +34,7 @@ class _RootScreenState extends State<RootScreen> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
-        fixedColor: Color(0xFFDB3022),
+        fixedColor: const Color(0xFFDB3022),
         currentIndex: _selectedIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -44,13 +44,13 @@ class _RootScreenState extends State<RootScreen> {
           });
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          const BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
+          const BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: '',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+          const BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
         ],
       ),
     );

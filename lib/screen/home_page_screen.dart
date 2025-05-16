@@ -29,10 +29,10 @@ class HomePageScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SearchInput(),
-            SizedBox(height: 24),
-            CategoriesType(),
-            SizedBox(height: 24),
+            const SearchInput(),
+            const SizedBox(height: 24),
+            const CategoriesType(),
+            const SizedBox(height: 24),
             Expanded(
                 child: ProductsGrid(
                   products: products,

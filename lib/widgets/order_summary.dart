@@ -10,16 +10,15 @@ class OrderSummary extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return AnimatedContainer(
-      height: isExpanded ? 150 : 300,
-      duration: Duration(milliseconds: 300),
-      padding: EdgeInsets.all(12),
+      height: !isExpanded ? 150 : 300,
+      duration: const Duration(milliseconds: 300),
+      padding: const EdgeInsets.all(12),
       width: MediaQuery.of(context).size.width - 40.0,
       decoration: BoxDecoration(
-        // color: const Color.fromARGB(255, 173, 202, 226),
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
-          BoxShadow(
+          const BoxShadow(
             color: Colors.black12,
             blurRadius: 10,
             offset: Offset(0, -2),
@@ -41,7 +40,9 @@ class OrderSummary extends ConsumerWidget {
               ),
               IconButton(
                   onPressed: onArrowPressed,
-                  icon: Icon(Icons.keyboard_arrow_down))
+                  icon: Icon(!isExpanded
+                      ? Icons.keyboard_arrow_down
+                      : Icons.keyboard_arrow_up))
             ],
           ),
           Divider(
@@ -76,8 +77,8 @@ class OrderSummary extends ConsumerWidget {
                   style: ButtonStyle(
                       shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),
-                      backgroundColor: WidgetStatePropertyAll(Colors.red),
-                      padding: WidgetStatePropertyAll(
+                      backgroundColor: const WidgetStatePropertyAll(Colors.red),
+                      padding: const WidgetStatePropertyAll(
                         EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                       )),
                   child: Text(

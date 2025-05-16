@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trendy_app/model/cart_item_model.dart';
+import 'package:trendy_app/providers/cart_provider.dart';
+
 import 'package:trendy_app/providers/wishlist_provider.dart';
+import 'package:trendy_app/screen/root_screen.dart';
 
 class WishlistPageScreen extends ConsumerWidget {
   const WishlistPageScreen({super.key});
@@ -8,6 +12,7 @@ class WishlistPageScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final wishlist = ref.watch(wishlistProvider);
+    final cartNotifier = ref.read(cartProvider.notifier);
 
     return Scaffold(
       backgroundColor: Colors.grey,
@@ -26,13 +31,14 @@ class WishlistPageScreen extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.favorite_border, size: 80, color: Colors.grey),
-                  SizedBox(height: 12),
-                  Text(
+                  const Icon(Icons.favorite_border,
+                      size: 80, color: Colors.grey),
+                  const SizedBox(height: 12),
+                  const Text(
                     'Your wishlist is empty',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     'Tap the heart icon on products to add them here.',
                     textAlign: TextAlign.center,
@@ -46,8 +52,8 @@ class WishlistPageScreen extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final product = wishlist[index];
                 return Container(
-                  margin: EdgeInsets.all(12),
-                  padding: EdgeInsets.all(12),
+                  margin: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
@@ -65,7 +71,7 @@ class WishlistPageScreen extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,16 +85,16 @@ class WishlistPageScreen extends ConsumerWidget {
                                   .titleMedium
                                   ?.copyWith(fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
                                 '${product.price?.toStringAsFixed(2) ?? '0.00'} USD',
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelLarge
                                     ?.copyWith(
-                                      color: Color(0xFFDB3022),
+                                      color: const Color(0xFFDB3022),
                                     )),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
                               product.description ?? '',
                               maxLines: 2,
@@ -102,11 +108,22 @@ class WishlistPageScreen extends ConsumerWidget {
                             ),
                             const SizedBox(height: 16),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                final newItem = CartItemModel(
+                                    product: product, quantity: 1);
+                                cartNotifier.addToCart(newItem);
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => const RootScreen(
+                                              initialIndex: 1,
+                                            )),
+                                    (route) => false);
+                              },
                               style: ButtonStyle(
-                                  backgroundColor: WidgetStateProperty.all(
-                                      Color(0xFFDB3022)),
-                                  ),
+                                backgroundColor: WidgetStateProperty.all(
+                                    const Color(0xFFDB3022)),
+                              ),
                               child: Text(
                                 'Add To Cart',
                                 style: Theme.of(context)
@@ -126,17 +143,17 @@ class WishlistPageScreen extends ConsumerWidget {
                           final confirm = await showDialog<bool>(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text(
+                              title: const Text(
                                   'Do you want remove this product from wishlist ?'),
                               actions: [
                                 TextButton(
                                     onPressed: () =>
                                         Navigator.pop(context, false),
-                                    child: Text('No')),
+                                    child: const Text('No')),
                                 TextButton(
                                     onPressed: () =>
                                         Navigator.pop(context, true),
-                                    child: Text('Yes'))
+                                    child: const Text('Yes'))
                               ],
                             ),
                           );
@@ -146,7 +163,7 @@ class WishlistPageScreen extends ConsumerWidget {
                                 .toggleWishlist(product);
                           }
                         },
-                        icon: Icon(Icons.favorite, color: Colors.red),
+                        icon: const Icon(Icons.favorite, color: Colors.red),
                       ),
                     ],
                   ),

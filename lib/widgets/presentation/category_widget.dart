@@ -18,9 +18,10 @@ class CategoryWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: isSelected ? Color(0xFFDB3022) : Color(0x40DB3022),
+            color:
+                isSelected ? const Color(0xFFDB3022) : const Color(0x40DB3022),
             borderRadius: BorderRadius.circular(50),
           ),
           child: SvgPicture.asset(icon,
@@ -31,7 +32,7 @@ class CategoryWidget extends StatelessWidget {
         Text(
           title,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Color(0xFF252525),
+              color: const Color(0xFF252525),
               fontWeight: FontWeight.w700,
               fontSize: 13),
         )

@@ -15,10 +15,10 @@ class CartPageScreen extends ConsumerWidget {
     final cartNotifier = ref.read(cartProvider.notifier);
 
     final isExpanded = ref.watch(orderSummaryProvider);
-    final onArrowPressed = () {
+    onArrowPressed() {
       ref.read(orderSummaryProvider.notifier).state =
           !ref.read(orderSummaryProvider);
-    };
+    }
 
     return PopScope(
       canPop: false,
@@ -36,7 +36,7 @@ class CartPageScreen extends ConsumerWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Center(
+          title: const Center(
             child: Text('Cart'),
           ),
         ),
@@ -52,7 +52,7 @@ class CartPageScreen extends ConsumerWidget {
               )
             : ListView.builder(
                 itemCount: cart.length,
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 itemBuilder: (context, index) {
                   final item = cart[index];
                   final itemPrices = ref
@@ -79,7 +79,7 @@ class CartPageScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(item.product.title.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
@@ -87,13 +87,13 @@ class CartPageScreen extends ConsumerWidget {
                                 '\$${itemPrices.toStringAsFixed(2)}USD',
                               ),
                               const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Text('Rating'),
-                                  const SizedBox(width: 8),
-                                  Text('(500)'),
-                                ],
-                              ),
+                              // Row(
+                              //   children: [
+                              //     Text('Rating'),
+                              //     const SizedBox(width: 8),
+                              //     Text('(${item.product.rating?.count})'),
+                              //   ],
+                              // ),
                               const SizedBox(height: 16),
                               QuantityButton(productId: item.product.id!)
                             ],
@@ -104,17 +104,17 @@ class CartPageScreen extends ConsumerWidget {
                             final shouldRemove = await showDialog<bool>(
                               context: context,
                               builder: (context) => AlertDialog(
-                                title: Text(
+                                title: const Text(
                                     'Do you want remove this product from cart ?'),
                                 actions: [
                                   TextButton(
                                       onPressed: () =>
                                           Navigator.pop(context, false),
-                                      child: Text('No')),
+                                      child: const Text('No')),
                                   TextButton(
                                       onPressed: () =>
                                           Navigator.pop(context, true),
-                                      child: Text('Yes')),
+                                      child: const Text('Yes')),
                                 ],
                               ),
                             );

@@ -53,7 +53,7 @@ class DetailsPageScreen extends ConsumerWidget {
                 right: 0,
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -101,7 +101,7 @@ class DetailsPageScreen extends ConsumerWidget {
                           '\$${product.price?.toStringAsFixed(2) ?? '0,00'}USD',
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    color: Color(0xFFDB3022),
+                                    color: const Color(0xFFDB3022),
                                   )),
                       const SizedBox(height: 20),
                       Text(
@@ -118,11 +118,11 @@ class DetailsPageScreen extends ConsumerWidget {
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFF505050)),
+                            color: const Color(0xFF505050)),
                         maxLines: 6,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       ElevatedButton(
                         onPressed: () {
                           cartNotifier.addToCart(newItem);
@@ -136,9 +136,9 @@ class DetailsPageScreen extends ConsumerWidget {
                         },
                         style: ButtonStyle(
                             backgroundColor:
-                                WidgetStateProperty.all(Color(0xFFDB3022)),
+                                WidgetStateProperty.all(const Color(0xFFDB3022)),
                             padding: WidgetStateProperty.all(
-                                EdgeInsets.symmetric(
+                                const EdgeInsets.symmetric(
                                     vertical: 18, horizontal: 128))),
                         child: Text(
                           'Add To Cart',

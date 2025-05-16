@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trendy_app/screen/root_screen.dart';
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,16 +15,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Trendy App',
       theme: ThemeData(
-          appBarTheme: AppBarTheme(
-        backgroundColor: Color(0xFFFCFCFC),
-        scrolledUnderElevation: 0
-      )),
+          appBarTheme: const AppBarTheme(
+              backgroundColor: Color(0xFFFCFCFC), scrolledUnderElevation: 0)),
       // theme: ThemeData(
       //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       //     useMaterial3: true,
       //     bottomNavigationBarTheme:
       //         BottomNavigationBarThemeData(backgroundColor: Colors.red)),
-      home: RootScreen(),
+      home: const RootScreen(),
     );
   }
 }

@@ -19,7 +19,7 @@ class SearchInput extends ConsumerWidget {
               filled: true,
               fillColor: Colors.white,
               hintText: 'Search for products',
-              hintStyle: TextStyle(
+              hintStyle: const TextStyle(
                 color: Color(0xFF808080),
               ),
               border: OutlineInputBorder(
@@ -30,7 +30,7 @@ class SearchInput extends ConsumerWidget {
         const SizedBox(width: 20),
         InkWell(
             onTap: () {},
-            child: CircleAvatar(
+            child: const CircleAvatar(
               backgroundImage: AssetImage('assets/images/avatar.png'),
             )),
       ],

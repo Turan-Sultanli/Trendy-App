@@ -20,7 +20,7 @@ class CategoriesType extends ConsumerWidget {
                 fontWeight: FontWeight.w600,
               ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         SizedBox(
           height: 74,
           child: ListView(
@@ -36,7 +36,7 @@ class CategoriesType extends ConsumerWidget {
                     title: 'Clothes',
                     isSelected: selectedCategory == 'clothes',
                   )),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               GestureDetector(
                 onTap: () {
                   ref.read(selectedCategoryProvider.notifier).state =
@@ -48,7 +48,7 @@ class CategoriesType extends ConsumerWidget {
                   isSelected: selectedCategory == 'jewelery',
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               GestureDetector(
                 onTap: () {
                   ref.read(selectedCategoryProvider.notifier).state =

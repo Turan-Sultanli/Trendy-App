@@ -33,16 +33,16 @@ class QuantityButton extends ConsumerWidget {
                   final sholdRemove = await showDialog<bool>(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('Remove Item'),
-                      content:
-                          Text('Do you want to remove this product from cart?'),
+                      title: const Text('Remove Item'),
+                      content: const Text(
+                          'Do you want to remove this product from cart?'),
                       actions: [
                         TextButton(
                             onPressed: () => Navigator.pop(context, false),
-                            child: Text('No')),
+                            child: const Text('No')),
                         TextButton(
                             onPressed: () => Navigator.pop(context, true),
-                            child: Text('Yes')),
+                            child: const Text('Yes')),
                       ],
                     ),
                   );
@@ -53,7 +53,7 @@ class QuantityButton extends ConsumerWidget {
                   cartNotifier.decreaseQuantity(productId);
                 }
               },
-              icon: Icon(Icons.remove),
+              icon: const Icon(Icons.remove),
               iconSize: 18,
               padding: EdgeInsets.zero,
               splashRadius: 20,
@@ -73,7 +73,7 @@ class QuantityButton extends ConsumerWidget {
               onPressed: () {
                 cartNotifier.increaseQuantity(productId);
               },
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               iconSize: 18,
               padding: EdgeInsets.zero,
               splashRadius: 20,

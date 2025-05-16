@@ -41,15 +41,15 @@ class SignInScreen extends StatelessWidget {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20))),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: 'Password',
-                          suffixIcon: Icon(Icons.remove_red_eye),
+                          suffixIcon: const Icon(Icons.remove_red_eye),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20))),
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     ElevatedButton(
                         onPressed: () {}, child: const Text('Sign In'))
                   ],

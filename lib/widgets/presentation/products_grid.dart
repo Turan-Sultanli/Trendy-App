@@ -19,7 +19,7 @@ class ProductsGrid extends ConsumerWidget {
             Text(
               'Latest Products',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Color(0xFF252525),
+                    color: const Color(0xFF252525),
                     fontWeight: FontWeight.w600,
                   ),
             ),
@@ -29,14 +29,15 @@ class ProductsGrid extends ConsumerWidget {
               },
               child: Text('See all',
                   style: (Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Color(0xFFDB3022), fontWeight: FontWeight.w600))),
+                      color: const Color(0xFFDB3022),
+                      fontWeight: FontWeight.w600))),
             ),
           ],
         ),
         Expanded(
           child: GridView.builder(
             itemCount: products.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 20,
               mainAxisSpacing: 24,
