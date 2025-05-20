@@ -84,7 +84,7 @@ class CartPageScreen extends ConsumerWidget {
                                       fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
                               Text(
-                                '\$${itemPrices.toStringAsFixed(2)}USD',
+                                '\$${itemPrices.toStringAsFixed(2)} \$',
                               ),
                               const SizedBox(height: 8),
                               // Row(

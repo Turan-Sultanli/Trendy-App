@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trendy_app/providers/search_provider.dart';
+import 'package:trendy_app/screen/root_screen.dart';
 
 class SearchInput extends ConsumerWidget {
   const SearchInput({super.key});
@@ -29,9 +30,16 @@ class SearchInput extends ConsumerWidget {
         )),
         const SizedBox(width: 20),
         InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => const RootScreen(initialIndex: 3)),
+                (route) => false,
+              );
+            },
             child: const CircleAvatar(
-              backgroundImage: AssetImage('assets/images/avatar.png'),
+              backgroundImage: AssetImage('assets/images/profile.png'),
             )),
       ],
     );
