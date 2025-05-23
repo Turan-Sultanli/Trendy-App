@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:trendy_app/screen/auth/sign_up_page_screen.dart';
 import 'package:trendy_app/screen/root_screen.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       //     useMaterial3: true,
       //     bottomNavigationBarTheme:
       //         BottomNavigationBarThemeData(backgroundColor: Colors.red)),
-      home: const RootScreen(),
+      home:  SignUpScreen(),
     );
   }
 }

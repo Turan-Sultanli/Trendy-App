@@ -49,7 +49,10 @@ class ProfilePageScreen extends StatelessWidget {
                         const SizedBox(width: 12),
                         Text(
                           'Cart',
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(fontSize: 20),
                         ),
                       ],
                     ),
@@ -69,7 +72,10 @@ class ProfilePageScreen extends StatelessWidget {
                         const SizedBox(width: 12),
                         Text(
                           'Favorites',
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(fontSize: 20),
                         ),
                       ],
                     ),
@@ -89,7 +95,10 @@ class ProfilePageScreen extends StatelessWidget {
                         const SizedBox(width: 12),
                         Text(
                           'Adress',
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(fontSize: 20),
                         ),
                       ],
                     ),
@@ -107,16 +116,7 @@ class ProfilePageScreen extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(12),
           child: ElevatedButton(
-            onPressed: () {
-              // cartNotifier.addToCart(newItem);
-              // Navigator.pushAndRemoveUntil(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (_) => const RootScreen(initialIndex: 1),
-              //   ),
-              //   (route) => false,
-              // );
-            },
+            onPressed: () {},
             style: ButtonStyle(
                 backgroundColor:
                     WidgetStateProperty.all(const Color(0xFFDB3022)),

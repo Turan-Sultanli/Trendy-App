@@ -6,11 +6,11 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 160),
-        child: Align(
-          alignment: Alignment.center,
+        child: Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'Sign In',
@@ -19,9 +19,7 @@ class SignInScreen extends StatelessWidget {
                     .headlineLarge
                     ?.copyWith(fontWeight: FontWeight.bold),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Text(
                 "Hi. Welcome back, you've been missed",
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -30,31 +28,57 @@ class SignInScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Form(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
                           labelText: 'Email',
                           hintText: 'example@gmail.com',
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20))),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      decoration: InputDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
                           labelText: 'Password',
                           suffixIcon: const Icon(Icons.remove_red_eye),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20))),
-                    ),
-                    const SizedBox(height: 12),
-                    ElevatedButton(
-                        onPressed: () {}, child: const Text('Sign In'))
-                  ],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Sign In funksiyası burda çağırılacaq
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size.fromHeight(50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 4,
+                          shadowColor: Colors.black26,
+                        ),
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ))
+              )
             ],
           ),
         ),
