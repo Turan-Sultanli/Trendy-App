@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trendy_app/providers/auth_provider.dart';
+import 'package:trendy_app/screen/auth/sign_in_page_screen.dart';
 
-class ProfilePageScreen extends StatelessWidget {
+class ProfilePageScreen extends ConsumerWidget {
   const ProfilePageScreen({super.key});
 
+  Future<String?> getUserEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    final email = prefs.getString('email');
+    return email;
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Column(
       children: [
         Padding(
@@ -22,14 +32,25 @@ class ProfilePageScreen extends StatelessWidget {
                       .titleLarge
                       ?.copyWith(fontSize: 24, fontWeight: FontWeight.w800),
                 ),
-                Text(
-                  'JonhDoe@gmail.com',
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: const Color.fromARGB(255, 104, 101, 101),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                )
+                FutureBuilder(
+                    future: getUserEmail(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Text(
+                          snapshot.data ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(
+                                color: const Color.fromARGB(255, 104, 101, 101),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    })
               ],
             ),
           ),
@@ -116,7 +137,13 @@ class ProfilePageScreen extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(12),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ref.read(authProvider.notifier).logOutUser();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (_) => SignInScreen()),
+              );
+            },
             style: ButtonStyle(
                 backgroundColor:
                     WidgetStateProperty.all(const Color(0xFFDB3022)),

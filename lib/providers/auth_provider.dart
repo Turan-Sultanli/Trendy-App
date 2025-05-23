@@ -5,16 +5,26 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trendy_app/constants/const_url.dart';
 
+final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
+  return AuthNotifier();
+});
+
 class AuthState {
-  const AuthState({this.isLoading = false, this.error});
+  const AuthState({
+    this.isLoading = false,
+    this.error,
+    this.isSucces = false,
+  });
 
   final bool isLoading;
   final String? error;
+  final bool isSucces;
 
-  AuthState copyWith({bool? isLoading, String? error}) {
+  AuthState copyWith({bool? isLoading, String? error, bool? isSucces}) {
     return AuthState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
+      isSucces: isSucces ?? this.isSucces,
     );
   }
 }
@@ -51,11 +61,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
-      state = state.copyWith(isLoading: false, error: null);
+      prefs.setString('email', email);
+      state = state.copyWith(isLoading: false, error: null, isSucces: true);
     } else {
       final errorData = jsonDecode(response.body);
       final errorMessages = errorData['error']['message'];
-      state = state.copyWith(error: errorMessages);
+      state = state.copyWith(error: errorMessages, isSucces: false, isLoading: false);
     }
   }
 
@@ -85,11 +96,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
       // final userId = data['localId'];
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
-      state = state.copyWith(isLoading: false, error: null);
+      prefs.setString('email', email);
+      state = state.copyWith(isLoading: false, error: null, isSucces: true);
     } else {
       final errorData = jsonDecode(response.body);
       final errorMessages = errorData['error']['message'];
-      state = state.copyWith(error: errorMessages);
+      state = state.copyWith(error: errorMessages, isSucces: false, isLoading: false);
     }
   }
 
@@ -98,7 +110,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> logOutUser() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
-    state = state.copyWith(isLoading: false, error: null);
+    state = state.copyWith(isLoading: false, error: null, isSucces: false);
   }
 
 // CHECK USER STATUS
@@ -113,4 +125,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       return false;
     }
   }
+
+  void resetState() {
+  state = const AuthState();
+}
 }
