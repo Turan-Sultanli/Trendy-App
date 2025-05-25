@@ -66,19 +66,23 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } else {
       final errorData = jsonDecode(response.body);
       final errorMessages = errorData['error']['message'];
-      state = state.copyWith(error: errorMessages, isSucces: false, isLoading: false);
+      state = state.copyWith(
+          error: errorMessages, isSucces: false, isLoading: false);
     }
   }
 
   //SIGN UP USER
 
-  void signUpUser(String email, String password) async {
+  void signUpUser(
+      String email, String password, String firstName, String lastName) async {
     final url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=$firebaseApiKey";
 
     final body = {
       "email": email,
       'password': password,
+      'firstName': firstName,
+      'lastName': lastName,
       'returnSecureToken': true
     };
 
@@ -92,26 +96,37 @@ class AuthNotifier extends StateNotifier<AuthState> {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final token = data['idToken'];
+
+      print('Saving firstName: $firstName');
+      print('Saving lastName: $lastName');
+
       // final userEmail = data['email'];
       // final userId = data['localId'];
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
       prefs.setString('email', email);
+      prefs.setString('firstName', firstName);
+      prefs.setString('lastName', lastName);
       state = state.copyWith(isLoading: false, error: null, isSucces: true);
     } else {
       final errorData = jsonDecode(response.body);
       final errorMessages = errorData['error']['message'];
-      state = state.copyWith(error: errorMessages, isSucces: false, isLoading: false);
+      state = state.copyWith(
+          error: errorMessages, isSucces: false, isLoading: false);
     }
   }
 
   //LOG OUT USER
 
   Future<void> logOutUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.remove('token');
-    state = state.copyWith(isLoading: false, error: null, isSucces: false);
-  }
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('token');
+  await prefs.remove('email');
+  await prefs.remove('firstName');
+  await prefs.remove('lastName');
+
+  state = const AuthState(); // bütün state-i sıfırla
+}
 
 // CHECK USER STATUS
 
@@ -127,6 +142,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void resetState() {
-  state = const AuthState();
-}
+    state = const AuthState();
+  }
 }

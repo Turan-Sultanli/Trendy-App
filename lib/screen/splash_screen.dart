@@ -18,10 +18,10 @@ class SplashScreen extends ConsumerWidget {
           );
         }
 
-        if(snapshot.data == true) {
+        if (snapshot.data == true) {
           return const RootScreen();
         } else {
-          return SignInScreen();
+          return const SignInScreen();
         }
       },
     );

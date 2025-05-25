@@ -25,12 +25,25 @@ class ProfilePageScreen extends ConsumerWidget {
               children: [
                 Image.asset('assets/images/profile.png'),
                 const SizedBox(height: 16),
-                Text(
-                  'John Doe',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(fontSize: 24, fontWeight: FontWeight.w800),
+                FutureBuilder(
+                  future: SharedPreferences.getInstance(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done) {
+                      return const CircularProgressIndicator();
+                    }
+
+                    final prefs = snapshot.data!;
+                    final firstName = prefs.getString('firstName') ?? '';
+                    final lastName = prefs.getString('lastName') ?? '';
+
+                    return Text(
+                      '$firstName $lastName',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontSize: 24, fontWeight: FontWeight.w800),
+                    );
+                  },
                 ),
                 FutureBuilder(
                     future: getUserEmail(),
@@ -112,7 +125,7 @@ class ProfilePageScreen extends ConsumerWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(Icons.shopping_cart, size: 24),
+                        const Icon(Icons.location_pin, size: 24),
                         const SizedBox(width: 12),
                         Text(
                           'Adress',
@@ -137,12 +150,15 @@ class ProfilePageScreen extends ConsumerWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(12),
           child: ElevatedButton(
-            onPressed: () {
-              ref.read(authProvider.notifier).logOutUser();
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => SignInScreen()),
-              );
+            onPressed: () async {
+              await ref.read(authProvider.notifier).logOutUser();
+
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SignInScreen()),
+                );
+              });
             },
             style: ButtonStyle(
                 backgroundColor:

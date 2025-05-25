@@ -15,18 +15,15 @@ class SignUpForm extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final state = ref.watch(authProvider);
 
-    if (state.isSucces) {
-      Future.microtask(
-        () {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ref.read(authProvider).isSucces) {
           ref.read(authProvider.notifier).resetState();
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SignInScreen(),
-              ));
-        },
-      );
-    }
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const SignInScreen()),
+        );
+      }
+    });
 
     return Form(
       child: Padding(
@@ -93,9 +90,11 @@ class SignUpForm extends ConsumerWidget {
                     onPressed: () {
                       final email = _emailController.text.trim();
                       final password = _passwordController.text.trim();
+                      final firstName = _firstNameController.text.trim();
+                      final lastName = _lastNameController.text.trim();
                       ref
                           .read(authProvider.notifier)
-                          .signUpUser(email, password);
+                          .signUpUser(email, password, firstName, lastName);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
@@ -125,7 +124,7 @@ class SignUpForm extends ConsumerWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignInScreen(),
+                            builder: (context) => const SignInScreen(),
                           ));
                     },
                     child: const Text('Sign In'))
