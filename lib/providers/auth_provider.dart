@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trendy_app/constants/const_url.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   return AuthNotifier();
@@ -55,13 +56,23 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-
-      // final userId = data['localId'];
       final token = data['idToken'];
+      final userId = data['localId'];
+
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+
+      final firstName = doc['firstName'];
+      final lastName = doc['lastName'];
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
       prefs.setString('email', email);
+      prefs.setString('firstName', firstName);
+      prefs.setString('lastName', lastName);
+
       state = state.copyWith(isLoading: false, error: null, isSucces: true);
     } else {
       final errorData = jsonDecode(response.body);
@@ -96,17 +107,20 @@ class AuthNotifier extends StateNotifier<AuthState> {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final token = data['idToken'];
+      final userId = data['localId'];
 
-      print('Saving firstName: $firstName');
-      print('Saving lastName: $lastName');
+      await FirebaseFirestore.instance.collection('users').doc(userId).set({
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+      });
 
-      // final userEmail = data['email'];
-      // final userId = data['localId'];
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
       prefs.setString('email', email);
       prefs.setString('firstName', firstName);
       prefs.setString('lastName', lastName);
+
       state = state.copyWith(isLoading: false, error: null, isSucces: true);
     } else {
       final errorData = jsonDecode(response.body);
@@ -119,14 +133,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
   //LOG OUT USER
 
   Future<void> logOutUser() async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.remove('token');
-  await prefs.remove('email');
-  await prefs.remove('firstName');
-  await prefs.remove('lastName');
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    await prefs.remove('email');
+    await prefs.remove('firstName');
+    await prefs.remove('lastName');
 
-  state = const AuthState(); // bütün state-i sıfırla
-}
+    state = const AuthState(); // bütün state-i sıfırla
+  }
 
 // CHECK USER STATUS
 

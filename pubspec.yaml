@@ -40,6 +40,8 @@ dependencies:
   flutter_riverpod: ^2.6.1
   collection: ^1.18.0
   shared_preferences: ^2.2.2
+  firebase_core: ^2.27.0
+  cloud_firestore: ^4.15.5
 
 dev_dependencies:
   flutter_test:
